@@ -1,0 +1,62 @@
+.movie-cards {
+  &__list {
+    @include flex(column, center, center);
+    gap: 20px;
+  }
+  &__item {
+    width: 280px;
+    height: 443px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+  }
+  &__thumb {
+    width: 100%;
+    height: 402px;
+  }
+  //   &__img {
+  //   }
+  &__info {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 500;
+    line-height: 1.33;
+  }
+  &__title {
+    text-transform: uppercase;
+  }
+  &__details {
+    color: $hover-color;
+  }
+}
+
+@include medium-screen {
+  .movie-cards {
+    &__list {
+      @include flex(row, flex-start, center);
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    &__item {
+      flex-basis: calc((100% - 30px) / 2);
+      width: 294px;
+      height: 440px;
+    }
+    &__thumb {
+      height: 398px;
+    }
+  }
+}
+
+@include big-screen {
+  .movie-cards {
+    &__item {
+      flex-basis: calc((100% - 60px) / 3);
+      width: 274px;
+      height: 440px;
+    }
+    &__thumb {
+      // width: 274px;
+      height: 398px;
+    }
+  }
+}

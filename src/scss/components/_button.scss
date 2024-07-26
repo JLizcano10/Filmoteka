@@ -1,0 +1,23 @@
+.button {
+  width: 130px;
+  height: 44px;
+  font-family: $main-font-family;
+  font-weight: 500;
+  line-height: 1.33;
+  border: 1px solid $white-text-color;
+  border-radius: 5px;
+  background-color: transparent;
+  color: $white-text-color;
+  cursor: pointer;
+
+  &--color {
+    color: $black-text-color;
+    border: 1px solid $grey-secondary-bg;
+  }
+  &:hover,
+  &:focus {
+    background-color: $hover-color;
+    border: none;
+    color: $white-text-color;
+  }
+}

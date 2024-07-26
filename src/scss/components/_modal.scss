@@ -1,0 +1,175 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 100vh;
+  background-color: $backdrop-bg;
+  z-index: 100;
+}
+
+.modal {
+  position: relative;
+  width: 280px;
+  //   Altura definirla o no?
+  //   height: 958px;
+  background-color: $white-text-color;
+  padding-top: 40px;
+  padding-bottom: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  &__btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    @include flex(row, center, center);
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__btn:hover &__icon {
+    fill: $hover-color;
+  }
+  &__icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.modal-movie {
+  @include flex(column, center, center);
+  gap: 10px;
+  &__thumb {
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  &__content {
+    @include flex(column, center, flex-start);
+    gap: 10px;
+    font-weight: 500;
+  }
+  &__title {
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  &__table {
+    width: 100%;
+    text-align: left;
+    line-height: 1.33;
+  }
+  &__data {
+    width: 40%;
+    color: $modal-grey-text;
+  }
+  &__value {
+    // width: 60%;
+    &--uppercase {
+      text-transform: uppercase;
+    }
+  }
+  &__vote {
+    display: inline-flex;
+    justify-content: center;
+    width: 36px;
+    height: 16px;
+    border-radius: 4px;
+    color: $white-text-color;
+    background-color: $hover-color;
+
+    &--votes {
+      background-color: $grey-bg;
+      color: $black-text-color;
+    }
+  }
+
+  &__info {
+    @include flex(column, center, flex-start);
+    gap: 5px;
+  }
+
+  &__about {
+    line-height: 1.33;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    line-height: 1.66;
+  }
+
+  &__btnBox {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+  }
+}
+
+.backdrop.visible {
+  @include flex(row, center, center);
+}
+
+@include medium-screen {
+  .modal {
+    position: relative;
+    width: 618px;
+    //   Altura definirla o no?
+    //   height: 562px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  .modal-movie {
+    @include flex(row, center, flex-start);
+    gap: 30px;
+    &__thumb {
+      width: 264px;
+      // height: 374px;
+    }
+    &__content {
+      @include flex(column, center, flex-start);
+      width: 264px;
+    }
+    &__btnBox {
+      right: 30px;
+    }
+  }
+}
+
+@include big-screen {
+  .modal {
+    position: relative;
+    width: 882px;
+    //   Altura definirla o no?
+    //   height: 568px;
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .modal-movie {
+    @include flex(row, center, flex-start);
+    gap: 30px;
+    &__thumb {
+      width: 396px;
+      // height: 478px;
+    }
+    &__content {
+      @include flex(column, center, flex-start);
+      width: 396px;
+    }
+    &__title {
+      font-size: 30px;
+    }
+    &__btnBox {
+      bottom: 40px;
+      right: 100px;
+    }
+  }
+}

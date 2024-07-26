@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+@import "./utils/variables";
+@import "./utils/mixins";
+@import "./utils/base";
+
+// Componentes
+@import "./components/header-page";
+@import "./components/hero";
+@import "./components/movie-cards";
+@import "./components/pagination";
+@import "./components/footer-page";
+@import "./components/modal";
+@import "./components/button";

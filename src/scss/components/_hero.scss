@@ -1,0 +1,79 @@
+.hero {
+  height: 230px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url(../img/mobile/hero-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  // background-position: center;
+  &__container {
+    @include flex(row, center, center);
+
+    height: 100%;
+
+    &--gap {
+      gap: 20px;
+    }
+  }
+
+  &__form {
+    position: relative;
+    width: 100%;
+    padding-top: 30px;
+  }
+  &__input {
+    width: 100%;
+    padding: 2px;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid $white-text-color;
+    color: $white-text-color;
+
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid $hover-color;
+    }
+  }
+  &__btn {
+    position: absolute;
+    right: 0;
+    background-color: inherit;
+    outline: none;
+    border: none;
+  }
+}
+
+.hero-library {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url(../img/mobile/library-bg.png);
+  background-size: 100% 100%;
+}
+
+@include medium-screen {
+  .hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../img/tablet/hero-bg.png);
+
+    &__form {
+      width: 336px;
+    }
+  }
+
+  .hero-library {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../img/tablet/library-bg.png);
+  }
+}
+
+@include big-screen {
+  .hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../img/desktop/hero-bg.png);
+  }
+
+  .hero-library {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../img/desktop/library-bg.png);
+  }
+}

@@ -1,0 +1,42 @@
+.pagination {
+  padding-bottom: 30px;
+  &__container {
+    @include flex(row, center, center);
+    gap: 20px;
+  }
+
+  &__add,
+  &__sub {
+    @include flex(row, center, center);
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    font-family: $main-font-family;
+    font-weight: 500;
+    line-height: 1.33;
+    border: 1px solid $grey-secondary-bg;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    &:hover {
+      background-color: $grey-secondary-bg;
+      color: $white-text-color;
+    }
+  }
+
+  &__span {
+    @include flex(row, center, center);
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    font-family: $main-font-family;
+    font-weight: 700;
+    color: $white-text-color;
+    background-color: $hover-color;
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+  }
+}

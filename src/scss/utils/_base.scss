@@ -1,0 +1,70 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $main-bg;
+  font-family: $main-font-family;
+  font-size: $mobile-font-size;
+}
+a {
+  display: block;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container {
+  width: 320px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
+}
+
+.section {
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+@include medium-screen {
+  .container {
+    width: 768px;
+    padding-left: 76px;
+    padding-right: 76px;
+  }
+
+  .section {
+    padding-top: 60px;
+    padding-bottom: 50px;
+  }
+}
+
+@include big-screen {
+  .container {
+    width: 1024px;
+    padding-left: 71px;
+    padding-right: 71px;
+  }
+
+  .section {
+    padding-top: 60px;
+    padding-bottom: 50px;
+  }
+}

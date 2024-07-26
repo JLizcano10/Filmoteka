@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./scss/main.scss" />
-    <script type="module" src="./js/index.js"></script>
-    <title>Filmoteca</title>
+    <script type="module" src="./js/my-library.js"></script>
+    <title>Library</title>
   </head>
   <body>
     <header class="header-page">
@@ -27,31 +27,24 @@
 
           <ul class="navbar__list">
             <li class="navbar__item">
-              <a class="navbar__link navbar__link--active" href="./index.html"
-                >Home</a
-              >
+              <a class="navbar__link" href="./index.html">Home</a>
             </li>
             <li class="navbar__item">
-              <a class="navbar__link" href="./my-library.html">My library</a>
+              <a
+                class="navbar__link navbar__link--active"
+                href="./my-library.html"
+                >My library</a
+              >
             </li>
           </ul>
         </nav>
       </div>
     </header>
     <main>
-      <section class="hero">
-        <div class="container hero__container">
-          <form class="hero__form">
-            <input
-              class="hero__input"
-              type="text"
-              name="movieInput"
-              id="movieInput"
-            />
-            <button class="hero__btn" type="submit">
-              <img src="./img/search 2.png" alt="search" />
-            </button>
-          </form>
+      <section class="hero hero-library">
+        <div class="container hero__container hero__container--gap">
+          <button class="button" id="watched" type="button">Watched</button>
+          <button class="button" id="queue" type="button">Queue</button>
         </div>
       </section>
       <section class="movie-cards section">
@@ -79,7 +72,7 @@
           </div>
         </div>
       </section>
-      <section class="pagination">
+      <!-- <section class="pagination">
         <div class="container pagination__container">
           <button class="pagination__sub" type="button">
             <svg class="pagination__icon">
@@ -93,7 +86,7 @@
             </svg>
           </button>
         </div>
-      </section>
+      </section> -->
     </main>
     <footer class="footer-page">
       <div class="container footer-page__container">
