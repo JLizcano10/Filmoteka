@@ -5,6 +5,7 @@ import { fetchMovieByID, fetchMovies } from './tmdb-api';
 // Seleccion elementos DOM
 const heroForm = document.querySelector('form.hero__form');
 const movieCards = document.querySelector('ul.movie-cards__list');
+const pagination = document.querySelector('.pagination');
 const paginationAddBtn = document.querySelector('button.pagination__add');
 const paginationSubBtn = document.querySelector('button.pagination__sub');
 const paginationSpan = document.querySelector('span.pagination__span');
@@ -21,6 +22,7 @@ let totalPages;
 let query;
 let selectedMovie = null;
 loader.style.display = 'none';
+pagination.style.display = 'none';
 
 Notiflix.Notify.init({
   width: '300px',
@@ -61,6 +63,7 @@ const renderFetchMovies = async (searchRoute, searchParams) => {
     const movies = moviesData.results;
     if (movies.length > 0) {
       createMoviesMarkup(movies, movieCards);
+      pagination.style.display = 'flex';
     } else {
       Notiflix.Notify.failure('Sorry, no result for your search');
     }
