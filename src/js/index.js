@@ -1,3 +1,4 @@
+import Notiflix from 'notiflix';
 import { createMovieModalMarkup, createMoviesMarkup } from './renderMarkup';
 import { fetchMovieByID, fetchMovies } from './tmdb-api';
 
@@ -20,6 +21,14 @@ let totalPages;
 let query;
 let selectedMovie = null;
 loader.style.display = 'none';
+
+Notiflix.Notify.init({
+  width: '300px',
+  position: 'center-top',
+  fontSize: '15px',
+  closeButton: false,
+  timeout: 2000,
+});
 // Iniciar estos array como estado. si los defino [] cada vez que haga push al array iniciara desde 0. Pero si cargo el localStorage por defecto entonces las peliculas se iran guardadando en el array de manera correcta.
 const watchedArray = JSON.parse(localStorage.getItem('watchedArray')) || [];
 const queueArray = JSON.parse(localStorage.getItem('queueArray')) || [];
@@ -42,16 +51,18 @@ const renderInitialMovies = async () => {
 };
 
 const renderFetchMovies = async (searchRoute, searchParams) => {
+  // COMPROBAR CON PAGE PORQUE EL SERVIDOR LOCAL NO ME DEJA
+  loader.style.display = 'block';
   movieCards.innerHTML = '';
   try {
     const moviesData = await fetchMovies(searchRoute, searchParams);
+    loader.style.display = 'none';
     totalPages = moviesData.total_pages;
     const movies = moviesData.results;
     if (movies.length > 0) {
       createMoviesMarkup(movies, movieCards);
     } else {
-      console.log('Error');
-      loader.style.display = 'block';
+      Notiflix.Notify.failure('Sorry, no result for your search');
     }
   } catch (error) {
     console.log(error.message);
