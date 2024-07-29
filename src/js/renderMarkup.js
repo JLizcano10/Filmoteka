@@ -1,40 +1,49 @@
-import { movieGenres } from "./genres";
+import { movieGenres } from './genres';
 
-const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
-const posterSize = "original";
+const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
+const posterSize = 'original';
+const POSTER_NOT_FOUND = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1mcHVzLjjPjJNNYOT8v2f0rYU2C5wzvf_BnvhayR8N6ENCTXSP9quG0ejpmJ2w6EBWYw&usqp=CAU`;
 // Ruta correcta para visualizar poster: base_image_url+posterSize+poster_path
 export const createMoviesMarkup = (movies, movieCards) => {
   const moviesMarkup = movies
     .map(({ id, poster_path, title, genre_ids, release_date }) => {
       let genresNameArr = [];
-      genre_ids.map((el) => {
-        movieGenres.map((gen) => {
+      genre_ids.map(el => {
+        movieGenres.map(gen => {
           if (gen.id === el) {
             genresNameArr.push(gen.name);
           }
         });
       });
-      const dateYear = new Date(release_date).getFullYear();
+
+      const movieTitle = title ? title.slice(0, 39) : 'No Title';
+      const posterUrl = poster_path
+        ? `${BASE_IMAGE_URL}${posterSize}${poster_path}`
+        : `${POSTER_NOT_FOUND}`;
+      const dateYear = release_date
+        ? new Date(release_date).getFullYear()
+        : 'No Date';
+
       return `<li class="movie-cards__item" id="${id}">
           <div class="movie-cards__thumb">
             <img
               class="movie-cards__img"
-              src="${BASE_IMAGE_URL}${posterSize}${poster_path}"
-              alt="${title}"
+              src="${posterUrl}"
+              alt="${movieTitle}"
               loading="lazy"
             />
           </div>
           <div class="movie-cards__info">
-            <p class="movie-cards__title">${title.slice(0, 39)}</p>
+            <p class="movie-cards__title">${movieTitle}</p>
             <p class="movie-cards__details">${genresNameArr
               .slice(0, 2)
-              .join(", ")} | ${dateYear}</p>
+              .join(', ')} | ${dateYear}</p>
           </div>
         </li>`;
     })
-    .join("");
+    .join('');
 
-  movieCards.insertAdjacentHTML("beforeend", moviesMarkup);
+  movieCards.insertAdjacentHTML('beforeend', moviesMarkup);
 };
 
 export const createMovieModalMarkup = (movie, modalMovie) => {
@@ -50,11 +59,22 @@ export const createMovieModalMarkup = (movie, modalMovie) => {
     vote_count,
   } = movie;
 
+  const movieTitle = title ? title.slice(0, 39) : 'No Title';
+  const movieOriginalTitle = original_title
+    ? original_title
+    : 'No Original Title';
+  const posterUrl = poster_path
+    ? `${BASE_IMAGE_URL}${posterSize}${poster_path}`
+    : `${POSTER_NOT_FOUND}`;
+  console.log(genres);
+  const movieGenres = genres.length === 0 ? 'No Genres' : genres[0].name;
+  const movieOverview = overview ? overview : 'No About information';
+
   const movieModalMarkup = `<div class="modal-movie__thumb">
-                <img src="${BASE_IMAGE_URL}${posterSize}${poster_path}" alt="${title}" loading="lazy" />
+                <img src="${posterUrl}" alt="${title}" loading="lazy" />
               </div>
               <div class="modal-movie__content">
-                <p class="modal-movie__title">${title}</p>
+                <p class="modal-movie__title">${movieTitle}</p>
                 <table class="modal-movie__table">
                   <tr>
                     <td class="modal-movie__data">Vote / Votes</td>
@@ -76,50 +96,55 @@ export const createMovieModalMarkup = (movie, modalMovie) => {
                     <td
                       class="modal-movie__value modal-movie__value--uppercase"
                     >
-                      ${original_title}
+                      ${movieOriginalTitle}
                     </td>
                   </tr>
                   <tr>
                     <td class="modal-movie__data">Genre</td>
-                    <td class="modal-movie__value">${genres[0].name}</td>
+                    <td class="modal-movie__value">${movieGenres}</td>
                   </tr>
                 </table>
                 <div class="modal-movie__info">
                   <p class="modal-movie__about">About</p>
                   <p class="modal-movie__text">
-                    ${overview}
+                    ${movieOverview}
                   </p>
                 </div>
               </div>`;
 
-  modalMovie.insertAdjacentHTML("beforeend", movieModalMarkup);
+  modalMovie.insertAdjacentHTML('beforeend', movieModalMarkup);
 };
 
 export const createLibraryMoviesMarkup = (movies, movieCards) => {
   const libraryMoviesMarkup = movies
     .map(({ id, genres, title, poster_path, vote_average, release_date }) => {
-      const dateYear = new Date(release_date).getFullYear();
+      const posterUrl = poster_path
+        ? `${BASE_IMAGE_URL}${posterSize}${poster_path}`
+        : `${POSTER_NOT_FOUND}`;
+      const movieTitle = title ? title.slice(0, 39) : 'No Title';
+      const dateYear = release_date
+        ? new Date(release_date).getFullYear()
+        : 'No Date';
+      const movieGenres = genres.length === 0 ? 'No Genres' : genres[0].name;
 
       return `<li class="movie-cards__item" id="${id}">
           <div class="movie-cards__thumb">
             <img
               class="movie-cards__img"
-              src="${BASE_IMAGE_URL}${posterSize}${poster_path}"
+              src="${posterUrl}"
               alt="${title}"
               loading="lazy"
             />
           </div>
           <div class="movie-cards__info">
-            <p class="movie-cards__title">${title.slice(0, 39)}</p>
-            <p class="movie-cards__details"> ${
-              genres[0].name
-            } | ${dateYear} <span class="modal-movie__vote">${vote_average.toFixed(
+            <p class="movie-cards__title">${movieTitle}</p>
+            <p class="movie-cards__details"> ${movieGenres} | ${dateYear} <span class="modal-movie__vote">${vote_average.toFixed(
         1
       )}</span></p>
           </div>
         </li>`;
     })
-    .join("");
+    .join('');
 
-  movieCards.insertAdjacentHTML("beforeend", libraryMoviesMarkup);
+  movieCards.insertAdjacentHTML('beforeend', libraryMoviesMarkup);
 };
