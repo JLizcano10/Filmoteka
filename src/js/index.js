@@ -164,18 +164,24 @@ const handleKeyCloseModal = e => {
 };
 
 const handleAddWatched = e => {
-  if (selectedMovie) {
+  const movieIsExist = watchedArray.some(el => el.id === selectedMovie.id);
+  if (selectedMovie && !movieIsExist) {
     watchedArray.push(selectedMovie);
     const watchedArrayJSON = JSON.stringify(watchedArray);
     localStorage.setItem('watchedArray', watchedArrayJSON);
+  } else {
+    Notiflix.Notify.warning('This movie is already in list');
   }
 };
 
 const handleAddQueue = e => {
-  if (selectedMovie) {
+  const movieIsExist = queueArray.some(el => el.id === selectedMovie.id);
+  if (selectedMovie && !movieIsExist) {
     queueArray.push(selectedMovie);
     const queueArrayJSON = JSON.stringify(queueArray);
     localStorage.setItem('queueArray', queueArrayJSON);
+  } else {
+    Notiflix.Notify.warning('This movie is already in list');
   }
 };
 

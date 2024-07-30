@@ -3,19 +3,11 @@ import { movieGenres } from './genres';
 const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
 const posterSize = 'original';
 const POSTER_NOT_FOUND = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1mcHVzLjjPjJNNYOT8v2f0rYU2C5wzvf_BnvhayR8N6ENCTXSP9quG0ejpmJ2w6EBWYw&usqp=CAU`;
+
 // Ruta correcta para visualizar poster: base_image_url+posterSize+poster_path
 export const createMoviesMarkup = (movies, movieCards) => {
   const moviesMarkup = movies
     .map(({ id, poster_path, title, genre_ids, release_date }) => {
-      let genresNameArr = [];
-      genre_ids.map(el => {
-        movieGenres.map(gen => {
-          if (gen.id === el) {
-            genresNameArr.push(gen.name);
-          }
-        });
-      });
-
       const movieTitle = title ? title.slice(0, 39) : 'No Title';
       const posterUrl = poster_path
         ? `${BASE_IMAGE_URL}${posterSize}${poster_path}`
@@ -23,6 +15,15 @@ export const createMoviesMarkup = (movies, movieCards) => {
       const dateYear = release_date
         ? new Date(release_date).getFullYear()
         : 'No Date';
+      let genresNameArr = [];
+
+      genre_ids.map(el => {
+        movieGenres.map(gen => {
+          if (gen.id === el) {
+            genresNameArr.push(gen.name);
+          }
+        });
+      });
 
       return `<li class="movie-cards__item" id="${id}">
           <div class="movie-cards__thumb">
@@ -60,15 +61,14 @@ export const createMovieModalMarkup = (movie, modalMovie) => {
   } = movie;
 
   const movieTitle = title ? title.slice(0, 39) : 'No Title';
+  const movieGenres = genres.length === 0 ? 'No Genres' : genres[0].name;
+  const movieOverview = overview ? overview : 'No About information';
   const movieOriginalTitle = original_title
     ? original_title
     : 'No Original Title';
   const posterUrl = poster_path
     ? `${BASE_IMAGE_URL}${posterSize}${poster_path}`
     : `${POSTER_NOT_FOUND}`;
-  console.log(genres);
-  const movieGenres = genres.length === 0 ? 'No Genres' : genres[0].name;
-  const movieOverview = overview ? overview : 'No About information';
 
   const movieModalMarkup = `<div class="modal-movie__thumb">
                 <img src="${posterUrl}" alt="${title}" loading="lazy" />
@@ -118,14 +118,14 @@ export const createMovieModalMarkup = (movie, modalMovie) => {
 export const createLibraryMoviesMarkup = (movies, movieCards) => {
   const libraryMoviesMarkup = movies
     .map(({ id, genres, title, poster_path, vote_average, release_date }) => {
-      const posterUrl = poster_path
-        ? `${BASE_IMAGE_URL}${posterSize}${poster_path}`
-        : `${POSTER_NOT_FOUND}`;
+      const movieGenres = genres.length === 0 ? 'No Genres' : genres[0].name;
       const movieTitle = title ? title.slice(0, 39) : 'No Title';
       const dateYear = release_date
         ? new Date(release_date).getFullYear()
         : 'No Date';
-      const movieGenres = genres.length === 0 ? 'No Genres' : genres[0].name;
+      const posterUrl = poster_path
+        ? `${BASE_IMAGE_URL}${posterSize}${poster_path}`
+        : `${POSTER_NOT_FOUND}`;
 
       return `<li class="movie-cards__item" id="${id}">
           <div class="movie-cards__thumb">
