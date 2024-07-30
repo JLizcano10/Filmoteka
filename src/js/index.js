@@ -3,6 +3,7 @@ import { createMovieModalMarkup, createMoviesMarkup } from './renderMarkup';
 import { fetchMovieByID, fetchMovies } from './tmdb-api';
 
 // Seleccion elementos DOM
+const body = document.querySelector('body');
 const heroForm = document.querySelector('form.hero__form');
 const movieCards = document.querySelector('ul.movie-cards__list');
 const pagination = document.querySelector('.pagination');
@@ -136,6 +137,7 @@ const handleSelectCard = async e => {
     modalMovie.innerHTML = '';
     try {
       const movie = await fetchMovieByID(card.id);
+      // Aqui select movie es el objeto pelicula seleccionada.
       selectedMovie = movie;
       createMovieModalMarkup(movie, modalMovie);
     } catch (error) {
@@ -146,9 +148,19 @@ const handleSelectCard = async e => {
 
 const handleCloseModal = e => {
   const closeBtn = e.target.closest('button.modal__btn');
-  if (closeBtn) {
-    toogleModal(false);
+
+  if (!closeBtn && e.target !== backdropModal) {
+    return;
   }
+  toogleModal(false);
+};
+
+const handleKeyCloseModal = e => {
+  if (e.code !== 'Escape') {
+    return;
+  }
+
+  toogleModal(false);
 };
 
 const handleAddWatched = e => {
@@ -172,7 +184,8 @@ heroForm.addEventListener('submit', handleSubmit);
 paginationAddBtn.addEventListener('click', handleAddPage);
 paginationSubBtn.addEventListener('click', handleSubPage);
 movieCards.addEventListener('click', handleSelectCard);
-closeModal.addEventListener('click', handleCloseModal);
+backdropModal.addEventListener('click', handleCloseModal);
+body.addEventListener('keydown', handleKeyCloseModal);
 addWatched.addEventListener('click', handleAddWatched);
 addQueue.addEventListener('click', handleAddQueue);
 // Inicializacion
