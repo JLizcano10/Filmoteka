@@ -1,21 +1,26 @@
 import Notiflix from 'notiflix';
 import { createMovieModalMarkup, createMoviesMarkup } from './renderMarkup';
 import { fetchMovieByID, fetchMovies } from './tmdb-api';
+import { commonElements, indexElements } from './domElements';
 
-// Seleccion elementos DOM
-const body = document.querySelector('body');
-const heroForm = document.querySelector('form.hero__form');
-const movieCards = document.querySelector('ul.movie-cards__list');
-const pagination = document.querySelector('.pagination');
-const paginationAddBtn = document.querySelector('button.pagination__add');
-const paginationSubBtn = document.querySelector('button.pagination__sub');
-const paginationSpan = document.querySelector('span.pagination__span');
-const backdropModal = document.querySelector('div.backdrop');
-const closeModal = document.querySelector('.modal__btn');
-const modalMovie = document.querySelector('.modal-movie');
-const addWatched = document.querySelector('.watched');
-const addQueue = document.querySelector('.queue');
-const loader = document.querySelector('.loader');
+const {
+  body,
+  movieCards,
+  backdropModal,
+  closeModal,
+  modalMovie,
+  addWatched,
+  addQueue,
+} = commonElements;
+
+const {
+  heroForm,
+  pagination,
+  paginationAddBtn,
+  paginationSubBtn,
+  paginationSpan,
+  loader,
+} = indexElements;
 
 // Variables
 let page = 1;
@@ -32,6 +37,7 @@ Notiflix.Notify.init({
   closeButton: false,
   timeout: 2000,
 });
+
 // Iniciar estos array como estado. si los defino [] cada vez que haga push al array iniciara desde 0. Pero si cargo el localStorage por defecto entonces las peliculas se iran guardadando en el array de manera correcta.
 const watchedArray = JSON.parse(localStorage.getItem('watchedArray')) || [];
 const queueArray = JSON.parse(localStorage.getItem('queueArray')) || [];

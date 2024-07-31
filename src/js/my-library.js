@@ -1,3 +1,4 @@
+import { commonElements, libraryElements } from './domElements';
 import {
   createLibraryMoviesMarkup,
   createMovieModalMarkup,
@@ -5,22 +6,21 @@ import {
 import { fetchMovieByID } from './tmdb-api';
 
 // DOM
-const heroLibraryButtons = document.querySelector('.hero__container');
-const noMoviesText = document.querySelector('.no-movies');
-noMoviesText.style.display = 'none';
-// ---------------------------------------------------------------------
-// -index.js
-const body = document.querySelector('body');
-const movieCards = document.querySelector('.movie-cards__list');
-const backdropModal = document.querySelector('div.backdrop');
-const closeModal = document.querySelector('.modal__btn');
-const modalMovie = document.querySelector('.modal-movie');
-const addWatched = document.querySelector('.watched');
-const addQueue = document.querySelector('.queue');
+const {
+  body,
+  movieCards,
+  backdropModal,
+  closeModal,
+  modalMovie,
+  addWatched,
+  addQueue,
+} = commonElements;
+
+const { heroLibraryButtons, noMoviesText } = libraryElements;
 
 // Variables-index.js
 let selectedMovie = null;
-
+noMoviesText.style.display = 'none';
 // Funciones
 
 const renderInitialLibraryMovies = () => {
