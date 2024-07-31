@@ -1,16 +1,12 @@
 import { commonElements, libraryElements } from './domElements';
+import { handleAddQueue, handleAddWatched } from './handleMovieList';
 import {
-  getSelectedMovie,
   handleCloseModal,
   handleKeyCloseModal,
   handleSelectCard,
   toogleModal,
 } from './modal';
-import {
-  createLibraryMoviesMarkup,
-  createMovieModalMarkup,
-} from './renderMarkup';
-import { fetchMovieByID } from './tmdb-api';
+import { createLibraryMoviesMarkup } from './renderMarkup';
 
 // DOM
 const {
@@ -25,7 +21,7 @@ const {
 
 const { heroLibraryButtons, noMoviesText } = libraryElements;
 
-// Variables
+// Inicializacion elementos DOM
 noMoviesText.style.display = 'none';
 
 // Funciones
@@ -81,8 +77,8 @@ heroLibraryButtons.addEventListener('click', handleLibraryButtons);
 movieCards.addEventListener('click', handleSelectCard);
 backdropModal.addEventListener('click', handleCloseModal);
 body.addEventListener('keydown', handleKeyCloseModal);
-// addWatched.addEventListener('click', handleAddWatched);
-// addQueue.addEventListener('click', handleAddQueue);
+addWatched.addEventListener('click', handleAddWatched);
+addQueue.addEventListener('click', handleAddQueue);
 
 // inicializacion
 renderInitialLibraryMovies();

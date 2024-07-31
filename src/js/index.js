@@ -1,14 +1,13 @@
-import Notiflix from 'notiflix';
-import { createMovieModalMarkup, createMoviesMarkup } from './renderMarkup';
-import { fetchMovieByID, fetchMovies } from './tmdb-api';
+import { createMoviesMarkup } from './renderMarkup';
+import { fetchMovies } from './tmdb-api';
 import { commonElements, indexElements } from './domElements';
 import {
-  getSelectedMovie,
   handleCloseModal,
   handleKeyCloseModal,
   handleSelectCard,
   toogleModal,
 } from './modal';
+import { handleAddQueue, handleAddWatched } from './handleMovieList';
 
 // DOM
 const {
@@ -35,23 +34,11 @@ let page = 1;
 let totalPages;
 let query;
 
+// inicializacion de elementos DOM
 loader.style.display = 'none';
 pagination.style.display = 'none';
 
-Notiflix.Notify.init({
-  width: '300px',
-  position: 'center-top',
-  fontSize: '15px',
-  closeButton: false,
-  timeout: 2000,
-});
-
-// Iniciar estos array como estado. si los defino [] cada vez que haga push al array iniciara desde 0. Pero si cargo el localStorage por defecto entonces las peliculas se iran guardadando en el array de manera correcta.
-const watchedArray = JSON.parse(localStorage.getItem('watchedArray')) || [];
-const queueArray = JSON.parse(localStorage.getItem('queueArray')) || [];
-
 // Funciones
-
 toogleModal();
 
 const renderInitialMovies = async () => {
@@ -137,31 +124,31 @@ const handleSubPage = () => {
   }
 };
 
-const handleAddWatched = () => {
-  const movie = getSelectedMovie();
-  if (movie) {
-    const movieIsExist = watchedArray.some(el => el.id === movie.id);
-    if (!movieIsExist) {
-      watchedArray.push(movie);
-      localStorage.setItem('watchedArray', JSON.stringify(watchedArray));
-    } else {
-      Notiflix.Notify.warning('This movie is already in list');
-    }
-  }
-};
+// const handleAddWatched = () => {
+//   const movie = getSelectedMovie();
+//   if (movie) {
+//     const movieIsExist = watchedArray.some(el => el.id === movie.id);
+//     if (!movieIsExist) {
+//       watchedArray.push(movie);
+//       localStorage.setItem('watchedArray', JSON.stringify(watchedArray));
+//     } else {
+//       Notiflix.Notify.warning('This movie is already in list');
+//     }
+//   }
+// };
 
-const handleAddQueue = () => {
-  const movie = getSelectedMovie();
-  if (movie) {
-    const movieIsExist = queueArray.some(el => el.id === movie.id);
-    if (!movieIsExist) {
-      queueArray.push(movie);
-      localStorage.setItem('queueArray', JSON.stringify(queueArray));
-    } else {
-      Notiflix.Notify.warning('This movie is already in list');
-    }
-  }
-};
+// const handleAddQueue = () => {
+//   const movie = getSelectedMovie();
+//   if (movie) {
+//     const movieIsExist = queueArray.some(el => el.id === movie.id);
+//     if (!movieIsExist) {
+//       queueArray.push(movie);
+//       localStorage.setItem('queueArray', JSON.stringify(queueArray));
+//     } else {
+//       Notiflix.Notify.warning('This movie is already in list');
+//     }
+//   }
+// };
 
 //
 
